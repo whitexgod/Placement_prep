@@ -1,16 +1,15 @@
 #include <stdio.h>
+#include <math.h>
+
 int prime(int n)
 {
-    int counter=0;
-    for(int i=1;i<(n+1);++i)
+    int counter=1;
+    for(int i=2; i<sqrt(n)+1; ++i)
     {
         if(n%i==0)
-            ++counter;
+            counter=0;
     }
-    if (counter==2)
-        return 1;
-    else 
-        return 0;
+    return counter;
 }
 void main()
 {
