@@ -34,18 +34,36 @@ Sample Output 1
 2
  */
 #include <stdio.h>
-
+void pushpa_raj(int arr[], int max, int n)
+{
+    for(int i=0;i<n;++i)
+    {
+        if (i!=max)
+            arr[i] = arr[i]+1;    
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if(arr[i]==(arr[max]+1))
+            pushpa_raj(arr,i,n);
+    }
+    printf("%d",arr[max]);
+}
 void main()
 {
-    int n;
-    scanf("%d",&n);
-    while(n--)
+    int N;
+    scanf("%d",&N);
+    while(N--)
     {
         int n;
         scanf("%d",&n);
         int h[n];
+        int max=0;
         for (int i=0; i<n; ++i)
+        {
             scanf("%d",&h[i]);
-        
+            if (h[i]>h[max])
+                max=i;
+        }            
+        pushpa_raj(h,max,n);
     }
 }
