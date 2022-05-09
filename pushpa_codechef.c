@@ -33,21 +33,11 @@ Sample Output 1
 3
 2
  */
+
 #include <stdio.h>
-void pushpa_raj(int arr[], int max, int n)
-{
-    for(int i=0;i<n;++i)
-    {
-        if (i!=max)
-            arr[i] = arr[i]+1;    
-    }
-    for (int i = 0; i < n; i++)
-    {
-        if(arr[i]==(arr[max]+1))
-            pushpa_raj(arr,i,n);
-    }
-    printf("%d",arr[max]);
-}
+
+/**
+#include <stdio.h>
 void main()
 {
     int N;
@@ -56,14 +46,67 @@ void main()
     {
         int n;
         scanf("%d",&n);
-        int h[n];
-        int max=0;
+        int h[n]; 
+        int max_index=0; 
         for (int i=0; i<n; ++i)
         {
             scanf("%d",&h[i]);
-            if (h[i]>h[max])
-                max=i;
+            if (h[i]>h[max_index])
+                max_index=i;
         }            
-        pushpa_raj(h,max,n);
+        int flag=1;
+        while (flag==1)
+        {
+            int maxx=max_index;
+            for(int k=0;k<n;++k)
+                if (k!=max_index)
+                {
+                    h[k] = h[k]+1;
+                    if (h[k]==h[max_index]+1)
+                        maxx=k;
+                }
+            if (maxx==max_index)                 
+                flag=0;
+            else
+                max_index=maxx;
+        }
+        printf("\n%d",h[max_index]); 
     }
 }
+ 
+ */
+
+#include <stdio.h>
+void main()
+{
+    int N;
+    scanf("%d",&N);
+    while(N--)
+    {
+        int n;
+        scanf("%d",&n);
+        int h[n]; 
+        int max_index=0; 
+        for (int i=0; i<n; ++i)
+        {
+            scanf("%d",&h[i]);
+            if (h[i]>h[max_index])
+                max_index=i;
+        }            
+        int c=1;
+        for (int k=0;k<n;++k)
+        {
+            if(k!=max_index)
+            {
+                h[k] += c;
+                if (h[k]==h[max_index]+1)
+                {
+                    ++c;
+                    max_index=k;
+                }
+            }
+        }
+        printf("\n%d",h[max_index]);       
+    }
+}
+
