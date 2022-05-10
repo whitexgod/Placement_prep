@@ -1,0 +1,7 @@
+git init
+git remote add origin ____________________
+git remote -v //to check push pop is available or not
+git add .
+git commit -m "_______"
+git push origin master
+
