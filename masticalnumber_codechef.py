@@ -1,4 +1,4 @@
-/**
+"""
  Mystical Numbers Problem Code: XORGAND
 Add problem to Todo list
 Submit
@@ -41,42 +41,35 @@ Sample Input 1
 Sample Output 1 
 3
 2
- */
+"""
 
-
-#include <stdio.h>
-int mastical(int m, int x)
-{
-    if((m^x)>(m&x))
-        return 1;
-    else
-        return 0;
-}
-void main()
-{
-    int N;
-    scanf("%d",&N);
-    while(N--)
-    {
-        int n;
-        scanf("%d",&n);
-        int arr[n];
-        for (int i=1; i<n+1; ++i)
-            scanf("%d",&arr[i]);
-        int Q;
-        scanf("%d",&Q);
-        while(Q--)
-        {
-            int counter=0;
-            int l,r,x;
-            scanf("%d %d %d",&l,&r,&x);
-            for (int j=l; j<r+1; ++j)
-            {
-                if (arr[j] != x )
-                    if ((arr[j]^x)>(arr[j]&x))
-                        ++counter;
-            }
-            printf("\n%d",counter);
-        }
-    }
-}
+# finding out the position of msb of the numbers
+def msb(n):
+    if n == 0:
+        return 0
+    B=1
+    while n >> B:
+        B += 1
+    return B
+        
+def sol():
+    N=int(input())
+    A=list(map(int, input().split()))
+    
+    prec = [[0 for i in range(32)] for i in range(N+1)] 
+    for i in range(N):
+        b = msb(A[i])
+        for j in range(32):
+            prec[i+1][j]=prec[i][j] + (b==j)
+    
+    Q=int(input())
+    for i in range(Q):
+        L,R,X = map(int,input().split())
+        b=msb(X);
+        ans = R-L+1 - (prec[R][b]-prec[L-1][b])
+        print(ans)
+        
+T=int(input())
+while(T>0):
+    sol()
+    T -= 1

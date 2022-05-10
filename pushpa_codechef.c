@@ -34,8 +34,6 @@ Sample Output 1
 2
  */
 
-#include <stdio.h>
-
 /**
 #include <stdio.h>
 void main()
@@ -76,7 +74,46 @@ void main()
  
  */
 
+// #include <stdio.h>
+// void main()
+// {
+//     int N;
+//     scanf("%d",&N);
+//     while(N--)
+//     {
+//         int n;
+//         scanf("%d",&n);
+//         int h[n]; 
+//         int max_index=0; 
+//         for (int i=0; i<n; ++i)
+//         {
+//             scanf("%d",&h[i]);
+//             if (h[i]>h[max_index])
+//                 max_index=i;
+//         }            
+//         int c=1;
+//         for (int k=0;k<n;++k)
+//         {
+//             if(k!=max_index)
+//             {
+//                 h[k] += c;
+//                 if (h[k]==h[max_index]+1)
+//                 {
+//                     ++c;
+//                     max_index=k;
+//                 }
+//             }
+//         }
+//         printf("\n%d",h[max_index]);       
+//     }
+// }
+
+
 #include <stdio.h>
+#include <stdlib.h>
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
 void main()
 {
     int N;
@@ -86,27 +123,29 @@ void main()
         int n;
         scanf("%d",&n);
         int h[n]; 
-        int max_index=0; 
         for (int i=0; i<n; ++i)
         {
             scanf("%d",&h[i]);
-            if (h[i]>h[max_index])
-                max_index=i;
-        }            
-        int c=1;
-        for (int k=0;k<n;++k)
+        } 
+        qsort(h,n,sizeof(int),cmpfunc);
+        if(n==1)
+            printf("\n%d",h[0]);
+        else
         {
-            if(k!=max_index)
+            int max=0;
+            int c=0;
+            for (int i=n-1; i>=1; --i)
             {
-                h[k] += c;
-                if (h[k]==h[max_index]+1)
-                {
+                if(h[i]==h[i-1])
                     ++c;
-                    max_index=k;
+                else
+                {
+                    if(max<h[i]+c)
+                        max=h[i]+c;
+                    c=0;
                 }
-            }
+            }  
+            printf("\n%d",max);
         }
-        printf("\n%d",h[max_index]);       
     }
 }
-
